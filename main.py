@@ -17,14 +17,28 @@ t_start = 0
 
 t_end = 100
 
-delta_t = 10
-
 g = 9.81
 
 time = []
 
 
-t_0 = 10
+t_0 = 5
+
+if t_0 < t_start or t_0 > t_end:
+    
+    t_0 = 10
+    
+    
+
+if t_0 != 0:
+
+    delta_t = t_0/t_end
+    
+else:
+    
+    delta_t = 10
+    
+    
 
 v_0 = 10
 
@@ -34,7 +48,7 @@ l = 10
 
 h = 10
 
-alpha = 0
+alpha = 45
 
 beta = 1
 
@@ -49,6 +63,7 @@ if l == 0:
     
 
 hit, hit_moment = tc.calculate_hit(t_start, t_end, delta_t, l, t_0, v_0, v_1, alpha, beta, h, g)
+
 
 if hit == True:
     
