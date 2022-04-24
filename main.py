@@ -5,9 +5,11 @@ Created on Sun Apr 24 14:30:13 2022
 @author: romas
 """
 
-import math as m
+
 
 import tkinter as tk
+
+import trajectories_calculation as tc
 
 
 
@@ -15,38 +17,43 @@ t_start = 0
 
 t_end = 100
 
+delta_t = 10
+
 g = 9.81
 
+time = []
 
 
-t_0 = 0
+t_0 = 10
 
-v_0 = 0
+v_0 = 10
 
-v_1 = 0
+v_1 = 5
 
-l = 0
+l = 10
 
-h = 0
+h = 10
 
 alpha = 0
 
-beta = 0
+beta = 1
 
 
+if h == 0:
+    
+    h += 10
+    
+if l == 0:
+    
+    l += 10
+    
 
-def shell_moving(t, t_0, velocity, angle, beta, height):
-    
-    x = (velocity/beta) * m.cos(angle) * (1-m.exp(-beta*(t-t_0)))
-    
-    y = ((velocity/beta) * m.sin(angle) + (g/m.pow(beta, 2))) * (1-m.exp(-beta*(t-t_0))) - (g/beta*(t-t_0) + height)
-    
-    return x, y
+hit, hit_moment = tc.calculate_hit(t_start, t_end, delta_t, l, t_0, v_0, v_1, alpha, beta, h, g)
 
-def target_moving(length, velocity, t):
+if hit == True:
     
-    x = l-velocity*t
+    print(f"Влучення відбулося в момент {hit_moment}")
     
-    y = 0
+else:
     
-    return x, y
+    print("Влучення не сталося")
