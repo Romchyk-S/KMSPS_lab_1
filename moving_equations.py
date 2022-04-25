@@ -9,11 +9,29 @@ import math as m
 
 def shell_moving(t, shoot_moment, velocity, angle, beta, height, g):
     
-    x = (velocity/beta) * m.cos(angle) * (1-m.exp(-beta*(t-shoot_moment)))
+    # exponent = 1-m.exp(-beta*(t-shoot_moment))
     
-    y = ((velocity/beta) * m.sin(angle) + (g/m.pow(beta, 2))) * (1-m.exp(-beta*(t-shoot_moment))) - (g/beta*(t-shoot_moment) + height)
+    # relation = velocity/beta
     
-    return x, y
+    # x = (relation * m.cos(angle)) * exponent
+    
+    # y = (relation * m.sin(angle) + (g/m.pow(beta, 2))) * (1-m.exp(-beta*(t-shoot_moment))) - ((g/beta)*(t-shoot_moment)) + height
+   
+   if t-shoot_moment < 0: 
+       
+       x = 0
+       
+       y = height
+       
+   else:       
+   
+       x = velocity*m.cos(angle)*(t-shoot_moment)
+        
+       y = velocity*m.sin(angle)*(t-shoot_moment) + height
+    
+    # перевірити рівняння
+    
+   return x, y
 
 def target_moving(length, velocity, t):
     
