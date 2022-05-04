@@ -17,7 +17,7 @@ def check_delta_t(t_0, t_start, t_end):
 
     if t_0 != 0:
 
-        delta_t = (t_0/t_end)*10
+        delta_t = t_0/t_end
 
     else:
 

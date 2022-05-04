@@ -42,6 +42,7 @@ t_end = 100
 
 t_0 = 4
 
+
 v_0 = 6
 
 v_1 = 5.6
@@ -57,6 +58,8 @@ t_0 = pc.check_t_0(t_0, t_start, t_end)
 
 delta_t = pc.check_delta_t(t_0, t_start, t_end)
 
+print(delta_t)
+
 h,l = pc.check_height_length(h, l)
 
 hit, hit_moment, shell_moving_x, shell_moving_y, target_moving_x, target_moving_y = tc.calculate_hit(t_start, t_end, delta_t, l, t_0, v_0, v_1, alpha, h)
@@ -68,6 +71,8 @@ x_1, y_1, x_2, y_2 = [], [], [], []
 anim = plta.FuncAnimation(plt.gcf(), animate)
 
 p.scatter_points(shell_moving_x, shell_moving_y, target_moving_x, target_moving_y)
+
+print(len(shell_moving_x))
 
 plt.show()
 

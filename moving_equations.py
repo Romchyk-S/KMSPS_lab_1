@@ -27,7 +27,7 @@ def shell_moving(t, shoot_moment, velocity, angle, height, g):
 
        x = velocity*m.cos(angle)*(t-shoot_moment)
 
-       y = -g*((t-shoot_moment)**2) + velocity*m.sin(angle)*(t-shoot_moment) + height
+       y = -(g/2)*((t-shoot_moment)**2) + velocity*m.sin(angle)*(t-shoot_moment) + height
 
    return x, y
 
