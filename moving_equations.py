@@ -7,7 +7,7 @@ Created on Sun Apr 24 15:38:22 2022
 
 import math as m
 
-def shell_moving(t, shoot_moment, velocity, angle, beta, height, g):
+def shell_moving(t, shoot_moment, velocity, angle, height, g):
 
     # exponent = 1-m.exp(-beta*(t-shoot_moment))
 
@@ -26,15 +26,9 @@ def shell_moving(t, shoot_moment, velocity, angle, beta, height, g):
    else:
 
        x = velocity*m.cos(angle)*(t-shoot_moment)
-# <<<<<<< HEAD
 
        y = (-g/2)*((t-shoot_moment)**2) + velocity*m.sin(angle)*(t-shoot_moment) + height
 
-# =======
-
-    # перевірити рівняння
-
-# >>>>>>> parent of ca48d57 (Making it work as it should)
    return x, y
 
 def target_moving(length, velocity, t):
