@@ -37,7 +37,6 @@ def animate(i):
 
 
 
-
 v_0 = 6
 
 v_1 = 10
@@ -46,18 +45,22 @@ l = 30
 
 h = 10
 
-alpha = 40
+alpha = 60
 
 
 t_start = 0
 
 g = 9.81
 
-sqr_parm = (v_0*m.sin(alpha))+(((v_0**2*m.sin(alpha)**2)+(2*g*h))**(1/2))
+# sqr_parm = (v_0*m.sin(alpha))+(((v_0**2*m.sin(alpha)**2)+(2*g*h))**(1/2))
 
-t_end = (l/v_1)-((v_0*m.cos(alpha)*sqr_parm)/(v_1*g))
+# t_end = (l/v_1)-((v_0*m.cos(alpha)*sqr_parm)/(v_1*g))
 
-t_0 = (l/v_1)-(((sqr_parm)*(v_0*m.cos(alpha)+v_1))/(v_1*g))
+# t_0 = (l/v_1)-(((sqr_parm)*(v_0*m.cos(alpha)+v_1))/(v_1*g))
+
+t_0 = 4
+
+t_end = 100
 
 print(t_0)
 
@@ -65,10 +68,10 @@ print(t_end)
 
 t_0 = pc.check_t_0(t_0, t_start, t_end)
 
-delta_t = 0.1
 
 h,l = pc.check_height_length(h, l)
 
+delta_t = pc.get_delta_t(t_0, t_start, t_end)
 
 
 hit, hit_moment, shell_moving_x, shell_moving_y, target_moving_x, target_moving_y = tc.calculate_hit(t_start, t_end, delta_t, l, t_0, v_0, v_1, alpha, h, g)

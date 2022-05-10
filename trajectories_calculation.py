@@ -30,6 +30,10 @@ def calculate_hit(t_start, t_end, delta_t, length, shoot_moment, velocity_shell,
 
     y_target_t = length
 
+    g = 9.81
+
+
+
 
     while t_1 <= t_end:
 
