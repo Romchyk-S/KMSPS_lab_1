@@ -9,6 +9,8 @@ import math as m
 
 def shell_moving(t, shoot_moment, velocity, angle, height, g):
 
+    # для руху з опором повітря, можна спробувати дописати
+
     # exponent = 1-m.exp(-beta*(t-shoot_moment))
 
     # relation = velocity/beta
@@ -38,3 +40,39 @@ def target_moving(length, velocity, t):
     y = 0
 
     return x, y
+
+
+def calculate_hit(t_start, t_end, delta_t, length, shoot_moment, velocity_shell, velocity_target, shoot_angle, height, g):
+
+    t_1 = t_start
+
+    hit = False
+
+    shell_moving_x, shell_moving_y, target_moving_x, target_moving_y = [], [], [], []
+
+    x_shell_t, y_shell_t = 0, height
+
+    x_target_t, y_target_t= 0, length
+
+    while t_1 <= t_end:
+
+        x_shell_t, y_shell_t = shell_moving(t_1, shoot_moment, velocity_shell, shoot_angle, height, g)
+
+        x_target_t, y_target_t = target_moving(length, velocity_target, t_1)
+
+        shell_moving_x.append(x_shell_t)
+
+        shell_moving_y.append(y_shell_t)
+
+        target_moving_x.append(x_target_t)
+
+        target_moving_y.append(y_target_t)
+
+        if round(y_shell_t, 1) <= 0:
+
+            break
+
+        t_1 += delta_t
+
+
+    return hit, t_1, shell_moving_x, shell_moving_y, target_moving_x, target_moving_y
