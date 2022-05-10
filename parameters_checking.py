@@ -9,11 +9,11 @@ def check_t_0(t_0, t_start, t_end):
 
     if t_0 < t_start or t_0 > t_end:
 
-        t_0 = 10
+        t_0 = (t_0-t_end) / 2
 
     return t_0
 
-def check_delta_t(t_0, t_start, t_end):
+def get_delta_t(t_0, t_start, t_end):
 
     if t_0 != 0:
 
