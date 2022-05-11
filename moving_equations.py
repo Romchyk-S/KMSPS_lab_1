@@ -27,15 +27,15 @@ def shell_moving(t, shoot_moment, velocity, angle, height, g):
 
    else:
 
-       x = velocity*m.cos(angle)*(t-shoot_moment)
+       x = round(velocity*m.cos(angle)*(t-shoot_moment), 6)
 
-       y = (-g/2)*((t-shoot_moment)**2) + velocity*m.sin(angle)*(t-shoot_moment) + height
+       y = round((-g/2)*((t-shoot_moment)**2) + velocity*m.sin(angle)*(t-shoot_moment) + height, 6)
 
    return x, y
 
 def target_moving(length, velocity, t):
 
-    x = length-velocity*t
+    x = round(length-velocity*t, 6)
 
     y = 0
 
@@ -52,7 +52,14 @@ def calculate_hit(t_start, t_end, delta_t, length, shoot_moment, velocity_shell,
 
     x_shell_t, y_shell_t = 0, height
 
-    x_target_t, y_target_t= 0, length
+    x_target_t, y_target_t = 0, length
+
+
+
+    i = 0
+
+    end = False
+
 
     while t_1 <= t_end:
 
@@ -60,19 +67,29 @@ def calculate_hit(t_start, t_end, delta_t, length, shoot_moment, velocity_shell,
 
         x_target_t, y_target_t = target_moving(length, velocity_target, t_1)
 
-        shell_moving_x.append(x_shell_t)
 
-        shell_moving_y.append(y_shell_t)
+        if i%100 == 0 or t_1 == t_end:
 
-        target_moving_x.append(x_target_t)
+            shell_moving_x.append(x_shell_t)
 
-        target_moving_y.append(y_target_t)
+            shell_moving_y.append(y_shell_t)
 
-        if round(y_shell_t, 1) <= 0:
+            target_moving_x.append(x_target_t)
 
-            break
+            target_moving_y.append(y_target_t)
 
-        t_1 += delta_t
+
+        if t_1 + delta_t <= t_end or end == True:
+
+            t_1 += delta_t
+
+        elif end == False:
+
+            t_1 = t_end
+
+            end = True
+
+        i += 1
 
 
     return hit, t_1, shell_moving_x, shell_moving_y, target_moving_x, target_moving_y

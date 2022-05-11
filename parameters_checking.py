@@ -29,13 +29,13 @@ def check_height_length(height, length):
 
 def check_t_not_negative(velocity_shell, velocity_target, shoot_angle, height, length, g):
 
-    summand_1 = velocity_shell**2*m.sin(2*shoot_angle)
+    # неправильно виведено умови, відключив функцію
 
-    sqrt_parm = 2*(velocity_shell*m.sin(shoot_angle)**2+2*g*height)**(1/2)
+    summand_1 = ((velocity_shell/2)**2)*m.sin(2*shoot_angle)
 
-    divisor = 2*g
+    sqrt_parm = m.sqrt(((velocity_shell**2*m.sin(shoot_angle)**2)+2*g*height))
 
-    if length <= (summand_1+(velocity_target*sqrt_parm))/divisor or length <= (summand_1+(velocity_shell*m.cos(shoot_angle)*sqrt_parm))/divisor:
+    if length*g < ((summand_1+(velocity_target*sqrt_parm))) or length*g < ((summand_1+(velocity_shell*m.cos(shoot_angle)*sqrt_parm))):
 
         return False
 
@@ -43,10 +43,14 @@ def check_t_not_negative(velocity_shell, velocity_target, shoot_angle, height, l
 
 def get_t(velocity_shell, velocity_target, shoot_angle, height, length, g):
 
-    sqrt_parm = (velocity_shell*m.sin(shoot_angle))+(((velocity_shell**2*m.sin(shoot_angle)**2)+(2*g*height))**(1/2))\
+    l_v = (length/velocity_target)
 
-    t_end = (length/velocity_target)-((velocity_shell*m.cos(shoot_angle)*sqrt_parm)/(velocity_target*g))
+    sqrt_parm = (velocity_shell*m.sin(shoot_angle))+(((velocity_shell**2*m.sin(shoot_angle)**2)+(2*g*height))**(1/2))
 
-    t_0 = (length/velocity_target)-(((sqrt_parm)*(velocity_shell*m.cos(shoot_angle)+velocity_target))/(velocity_target*g))
+    divisor = velocity_target*g
+
+    t_end = l_v - ((velocity_shell*m.cos(shoot_angle)*sqrt_parm)/divisor)
+
+    t_0 = l_v - (((velocity_shell*m.cos(shoot_angle)+velocity_target)*sqrt_parm)/divisor)
 
     return t_end, t_0

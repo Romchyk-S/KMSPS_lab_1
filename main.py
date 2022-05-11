@@ -5,8 +5,6 @@ Created on Sun Apr 24 14:30:13 2022
 @author: romas
 """
 
-# import tkinter as tk
-
 import moving_equations as me
 
 import matplotlib.pyplot as plt
@@ -16,6 +14,13 @@ import matplotlib.animation as plta
 import plots as p
 
 import parameters_checking as pc
+
+import math as m
+
+import interface as inter
+
+
+print()
 
 
 def animate(i):
@@ -35,32 +40,34 @@ def animate(i):
 
 
 
-# ці параметри можна змінювати та дивитися, який вийде результат
+variables = inter.make_interface()
 
-v_0 = 6
+try:
 
-v_1 = 12
+    v_0, v_1, l, h, alpha = variables[0], variables[1], variables[2], variables[3], m.radians(variables[4])
 
-l = 30
+    print("Параметри системи:")
 
-h = 10
+    print(f"v_0 = {v_0}")
 
-alpha = 45
+    print(f"v_1 = {v_1}")
+
+    print(f"l = {l}")
+
+    print(f"h = {h}")
+
+    print(f"alpha = {m.degrees(alpha)}")
+
+    print()
 
 
-t_start = 0
+    t_start = 0
 
-delta_t = 0.05
+    delta_t = 0.001
 
-g = 9.81
+    g = 9.81
 
 
-
-t_end, t_0 = pc.get_t(v_0, v_1, alpha, h, l, g)
-
-if pc.check_t_not_negative(v_0, v_1, alpha, h, l, g):
-
-    h,l = pc.check_height_length(h, l)
 
     t_end, t_0 = pc.get_t(v_0, v_1, alpha, h, l, g)
 
@@ -71,26 +78,37 @@ if pc.check_t_not_negative(v_0, v_1, alpha, h, l, g):
     print()
 
 
-    hit, hit_moment, shell_moving_x, shell_moving_y, target_moving_x, target_moving_y = me.calculate_hit(t_start, t_end, delta_t, l, t_0, v_0, v_1, alpha, h, g)
 
-    print("Координати влучення:")
+    if t_0 >= 0 and t_end >= 0:
 
-    print(f"Снаряд: ({shell_moving_x[-1]};{shell_moving_y[-1]})")
+        h,l = pc.check_height_length(h, l)
 
-    print(f"Мішень: ({target_moving_x[-1]};{target_moving_y[-1]})")
+        t_end, t_0 = pc.get_t(v_0, v_1, alpha, h, l, g)
 
 
-    x_1, y_1, x_2, y_2 = [], [], [], []
+        hit, hit_moment, shell_moving_x, shell_moving_y, target_moving_x, target_moving_y = me.calculate_hit(t_start, t_end, delta_t, l, t_0, v_0, v_1, alpha, h, g)
 
-    anim = plta.FuncAnimation(plt.gcf(), animate)
+        print("Координати влучення:")
 
-    p.scatter_points(shell_moving_x, shell_moving_y, target_moving_x, target_moving_y)
+        print(f"Снаряд: ({shell_moving_x[-1]};{shell_moving_y[-1]})")
 
-    plt.show()
+        print(f"Мішень: ({target_moving_x[-1]};{target_moving_y[-1]})")
 
-else:
 
-    print()
+        x_1, y_1, x_2, y_2 = [], [], [], []
 
-    print("Умови додатності часу не виконано")
+        anim = plta.FuncAnimation(plt.gcf(), animate)
 
+        p.scatter_points(shell_moving_x, shell_moving_y, target_moving_x, target_moving_y)
+
+        plt.show()
+
+    else:
+
+        print()
+
+        print("Умови додатності часу не виконано")
+
+except:
+
+    print("Виникла неочікувана помилка, можливо введено неправильні дані.")
